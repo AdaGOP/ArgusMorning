@@ -14,23 +14,17 @@ struct ArgusTests {
     @Test
     func testAddContactWithEmptyName() {
         let manager = ContactManager()
-        guard let contact = Contact(name: "", phoneNumber: "1234567890") else {
-            Issue.record("Failed to initialize Contact")
-            return
-        }
-        manager.addContact(contact)
+        let contact = Contact(name: "", phoneNumber: "1234567890")
+        #expect(contact == nil, "Contact with empty name should not be initialized.")
         #expect(manager.contacts.count == 0, "Contact with empty name should not be added.")
     }
     
     @Test
     func testAddContactWithInvalidPhoneNumber() {
         let manager = ContactManager()
-        guard let contact = Contact(name: "Alice", phoneNumber: "abcde12345") else {
-            Issue.record("Failed to initialize Contact")
-            return
-        }
-        manager.addContact(contact)
-        #expect(manager.contacts.count == 0, "Contact with invalid phone number should not be added.")
+        let contact = Contact(name: "Alice", phoneNumber: "abcde12345")
+        #expect(contact == nil, "Contact with empty name should not be initialized.")
+        #expect(manager.contacts.count == 0, "Contact with empty name should not be added.")
     }
     
     @Test
