@@ -63,6 +63,18 @@ struct ArgusTests {
         #expect(manager.contacts.contains(where: { $0.name == "Another Valid Contact" }), "Should contain 'Another Valid Contact'.")
     }
     
+    @Test
+    func testContactNameWithSpecialCharacters() {
+        // Attempt to create a contact with a name containing special characters
+        let specialName = "Anne-Marie O'Neill"
+        let validPhoneNumber = "1234567890"
+        let contact = Contact(name: specialName, phoneNumber: validPhoneNumber)
+        
+        // Expect the contact to be initialized successfully
+        #expect(contact !== nil, "Contact with valid special characters in name should be initialized.")
+        #expect(contact?.name == specialName, "Contact name should be '\(specialName)'.")
+    }
+    
     
     @Test
     func testMemoryLeakInClosures() {
