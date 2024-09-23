@@ -22,8 +22,10 @@ class Contact: Codable {
     /// The initializer validates the name and phone number. The name must not be empty and must consist
     /// of only Latin letters and spaces. The phone number must be exactly 10 digits.
     init?(name: String, phoneNumber: String) {
-        // Validation: name must not be empty and must match the regex
-        guard !name.isEmpty, name.range(of: "^[A-Za-z ]+$", options: .regularExpression) != nil,
+        // Updated name validation to allow Unicode letters, spaces, hyphens, and apostrophes
+        let nameRegex = "^[\\p{L} '\\-]+$"
+        guard !name.isEmpty,
+              name.range(of: nameRegex, options: .regularExpression) != nil,
               Contact.isValidPhoneNumber(phoneNumber) else {
             return nil
         }
